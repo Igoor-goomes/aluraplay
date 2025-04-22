@@ -1,6 +1,5 @@
 <?php
 
-// $dbPath = __DIR__ . '/banco_aluraplay.sqlite';
 $dbPath = '/mnt/d/Banco de Dados Ubuntu/banco.sqlite';
 $pdo = new PDO("sqlite:$dbPath");
 
