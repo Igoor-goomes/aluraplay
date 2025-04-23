@@ -1,9 +1,7 @@
 <?php
 $dbPath = '/mnt/d/Banco de Dados Ubuntu/banco.sqlite';
 $pdo = new PDO("sqlite:$dbPath");
-$videosLista = $pdo->query('SELECT * FROM videos;')->fetchAll(PDO::FETCH_ASSOC);
-
-
+$videos = $pdo->query('SELECT * FROM videos;')->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -35,8 +33,8 @@ $videosLista = $pdo->query('SELECT * FROM videos;')->fetchAll(PDO::FETCH_ASSOC);
 
     </header>
 
-    <ul class="videos__container" alt="videos alura"> 
-        <?php foreach ($videosLista as $video) : ?>
+    <ul class="videos__container" alt="videos alura">
+        <?php foreach ($videos as $video) : ?>
             <?php if (str_starts_with($video['url'], 'http')) : ?>
                 <li class="videos__item">
                     <iframe width="100%" height="72%" src="<?php echo $video['url']; ?>"
@@ -52,8 +50,8 @@ $videosLista = $pdo->query('SELECT * FROM videos;')->fetchAll(PDO::FETCH_ASSOC);
                         </div>
                     </div>
                 </li>
-            <?php endif?>
-       <?php endforeach ?>
+            <?php endif ?>
+        <?php endforeach ?>
     </ul>
 </body>
 
