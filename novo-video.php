@@ -3,18 +3,28 @@
 $dbPath = '/mnt/d/Banco de Dados Ubuntu/banco.sqlite';
 $pdo = new PDO("sqlite:$dbPath");
 
-$sql = 'INSERT INTO videos (url,title) VALUES (?, ?);';
-$statement = $pdo->prepare($sql);
-$statement->bindValue(1, $_POST['url']);
-$statement->bindValue(2, $_POST['titulo']);
-
-if ($statement->execute() === false) {
-    header('Location: /index.php?sucesso=0');
-    
-} else {
-    header('Location: /index.php?sucesso=1');
+$url = filter_input(INPUT_POST, 'url', FILTER_VALIDATE_URL); // validando nossa URL 
+if ($url === false) {
+    header('Location: index.php?sucesso=0');
 }
 
+$titulo = $_POST['titulo'];
 
+$sql = 'INSERT INTO videos (url,title) VALUES (?, ?);';
+$statement = $pdo->prepare($sql);
+$statement->bindValue(1, $url);
+$statement->bindValue(2, $titulo);
 
-
+if ($statement->execute() === false) {
+    echo "<script>
+            alert('Erro ao incluir o vídeo no AluraPlay!');
+            window.location.href = 'index.php?sucesso=0';  
+          </script>";
+    exit;
+} else {
+    echo "<script>
+            alert('Vídeo incluido com sucesso no AluraPlay!');
+            window.location.href = 'index.php?sucesso=1';  
+          </script>";
+    exit;
+}
