@@ -5,19 +5,19 @@ $pdo = new PDO("sqlite:$dbPath");
 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 if ($id === false) {
-  header('Location: index.php?sucesso=o&acao=editarId');
+  header('Location: /?sucesso=o&acao=editarId');
   exit;
 }
 
 $url = filter_input(INPUT_POST, 'url', FILTER_VALIDATE_URL);
 if ($url === false) {
-  header('Location: index.php?sucesso=o&acao=editarUrl');
+  header('Location: /?sucesso=o&acao=editarUrl');
   exit;
 }
 
 $titulo = filter_input(INPUT_POST, 'title');
 if ($titulo === false) {
-  header('Location: index.php?sucesso=o&acao=editarTitulo');
+  header('Location: /?sucesso=o&acao=editarTitulo');
   exit;
 }
 
@@ -28,15 +28,9 @@ $statement->bindValue(':title', $titulo);
 $statement->bindValue(':id', $id, PDO::PARAM_INT);
 
 if ($statement->execute() === false) {
-  echo "<script>
-            alert('Erro ao editar o vídeo!');
-            window.location.href = 'index.php?sucesso=0&erro=videoNaoPodeSerExcluido';  
-          </script>";
+  header('Location: /?error=editarVideo');
   exit;
 } else {
-  echo "<script>
-            alert('Vídeo editado com sucesso!');
-            window.location.href = 'index.php?sucesso=1&acao=editar';  
-          </script>";
+  header('Location: /?sucesso=editarVideo');
   exit;
 }

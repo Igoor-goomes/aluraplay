@@ -51,7 +51,7 @@ if ($id !== false) {
 
     <main class="container">
 
-        <form class="container__formulario" action="<?= 'editar-video.php?id=' . $id; ?>" method="post">
+        <form class="container__formulario" method="post">
             <h2 class="formulario__titulo">Envie um vídeo!</h2>
             <div class="formulario__campo">
                 <label class="campo__etiqueta" for="url">Link embed</label>
