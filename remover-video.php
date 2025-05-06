@@ -4,7 +4,7 @@ $dbPath = '/mnt/d/Banco de Dados Ubuntu/banco.sqlite';
 $pdo = new PDO("sqlite:$dbPath");
 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-if ($id === false) {
+if ($id === false || $id === null) {
   header('Location: /?erro=idInvalido');
   exit;
 }
